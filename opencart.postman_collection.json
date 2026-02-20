@@ -1,0 +1,331 @@
+{
+  "info": {
+    "_postman_id": "dbb5d112-2047-4df4-9b3e-c80b75842e6c",
+    "name": "opencart",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51635154",
+    "_collection_link": "https://go.postman.co/collection/51635154-dbb5d112-2047-4df4-9b3e-c80b75842e6c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "get_session_token",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "username",
+              "value": "abhishna",
+              "type": "text",
+              "uuid": "c4ca0c6d-730c-4236-a7fc-9157d937e39c"
+            },
+            {
+              "key": "key",
+              "value": "UKfwXLRUWFXcKvNFufX4kXj1RjjsXCzHJbYFRjKvzBZoctdAX63JagpizkLskjahVEuBg8dMgqR3tDcCSfMWzvr3T1dOexK7ev574cnTACmzltiQaZMV8cJteTSijFwvq4En3prqD5yRpKsDWA3j1TazUGGIxaeq7mZcfcX5bJsk8DfpZRIHrTBYUJpuHnVKceqFV5l2qMLjE0pvGga4hC6iLqJUEN60qURv3hvnv72hjEqJCwldRnwq0Sp0CEWW",
+              "type": "text",
+              "uuid": "b21a0ddc-a5eb-4f55-85e0-a230402d787f"
+            }
+          ]
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add pdt to acrt",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"product_id\",\"40\");\r",
+              "pm.collectionVariables.set(\"quantity\",\"2\");"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "in",
+              "value": "query",
+              "type": "string"
+            },
+            {
+              "key": "value",
+              "value": "{{api_token}}",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "api_token",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "product_id",
+              "value": "{{product_id}}",
+              "type": "text",
+              "uuid": "510ded89-f41a-439d-bf0e-2f260419e613"
+            },
+            {
+              "key": "quantity",
+              "value": "{{quantity}}",
+              "type": "text",
+              "uuid": "eb8a8254-4901-4abf-9469-5dc16037ac1c"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost/opencart/index.php?route=api/cart/add",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "path": [
+            "opencart",
+            "index.php"
+          ],
+          "query": [
+            {
+              "key": "route",
+              "value": "api/cart/add"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "cart content",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {   \r",
+              "    pm.response.to.have.status(200); \r",
+              "})\r",
+              "var jsonData=JSON.parse(responseBody);\r",
+              "pm.environment.set(\"cart_id_key\",jsonData.products[0].cart_id);\r",
+              "\r",
+              "console.log(pm.response.text());"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "in",
+              "value": "query",
+              "type": "string"
+            },
+            {
+              "key": "value",
+              "value": "{{api_token}}",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "api_token",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "product_id",
+              "value": "{{product_id}}",
+              "type": "text",
+              "uuid": "b4b644ad-4842-4782-b27b-5c1900651c6c"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost/opencart/index.php?route=api/cart/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "path": [
+            "opencart",
+            "index.php"
+          ],
+          "query": [
+            {
+              "key": "route",
+              "value": "api/cart/products"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit pdt qty in cart",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {   \r",
+              "    pm.response.to.have.status(200); \r",
+              "});\r",
+              "\r",
+              "pm.test(\"Checking status message\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    \r",
+              "    pm.expect(jsonData.success).to.include(\"modified your shopping cart\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "in",
+              "value": "query",
+              "type": "string"
+            },
+            {
+              "key": "value",
+              "value": "{{api_token}}",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "api_token",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "key",
+              "value": "{{cart_id_key}}",
+              "type": "text",
+              "uuid": "61a03b06-7799-41e3-bfa9-70c5e619a1e5"
+            },
+            {
+              "key": "quantity",
+              "value": "10",
+              "type": "text",
+              "uuid": "7dee996a-2534-4f09-acac-15095fffb4ca"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost/opencart/index.php?route=api/cart/edit",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "path": [
+            "opencart",
+            "index.php"
+          ],
+          "query": [
+            {
+              "key": "route",
+              "value": "api/cart/edit"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "ip",
+      "value": ""
+    },
+    {
+      "key": "carturl",
+      "value": ""
+    },
+    {
+      "key": "api_token",
+      "value": ""
+    },
+    {
+      "key": "product_id",
+      "value": ""
+    },
+    {
+      "key": "quantity",
+      "value": ""
+    }
+  ]
+}
